@@ -18,6 +18,8 @@ twinPrime(num1, num2)
 var numlist: List[Int] = twinPrimeList(50)
 
 //#4
+goldbach(28)
+
 
 
 //function to test if an int is prime
@@ -28,7 +30,7 @@ def prime(n: Int): Boolean = {
 //funtion to test if 2 numbers are twinprimes
 def twinPrime(n: Int, i: Int): Boolean = {
   if (prime(n) && prime(i)) {
-    if ((n - i == 2) || (n - i == -2) ) {
+    if ((n - i == 2) || (n - i == -2)) {
       return true
     }
     else
@@ -41,17 +43,18 @@ def twinPrime(n: Int, i: Int): Boolean = {
 //funtion to return list of prime numbers up to num //@@fix
 def twinPrimeList(n: Int): List[Int] = {
   var alist = Stack[Int]()
-  twinPrimeListHelp(n,alist)
+  twinPrimeListHelp(n, alist)
 
 }
 
 def twinPrimeListHelp(n: Int, alist: Stack[Int]): List[Int] = {
   if (prime(n)) {
     if (twinPrime(n, n - 2)) {
-      alist.push(n)
+      if (!alist.contains(n))
+        alist.push(n)
       alist.push(n - 2)
     }
-    if (!n.equals(2)) {
+    if (!n.equals(5)) {
       twinPrimeListHelp(n - 1, alist)
     }
     else
@@ -61,21 +64,33 @@ def twinPrimeListHelp(n: Int, alist: Stack[Int]): List[Int] = {
   else {
     twinPrimeListHelp(n - 1, alist)
 
-}}
+  }
+}
 
 //function for goldback
-def goldbach(n: Int): (Int, Int) = {
-  if (goldhelp(n)) {
-
+def goldbach(n: Int): Unit = {
+  if ((n > 2) && (n % 2 == 0)) {
+    var i: Int = 0
+    var g: Int = n
+    goldhelp(n, i, g)
   }
   else
     println("Integer was not above 2 or not positive")
-  return (-1,-1)
 }
 
-def goldhelp(n: Int): Boolean = {
-  if ((n >= 2) && (n % 2 == 0))
-    return true
-  else
-    return false
+def goldhelp(n: Int, i: Int, g: Int): Unit = {
+  if ((prime(g)) && (prime(i))) {
+    if (!(g + i == n)) {
+      var alpha = i + 1
+      var beta = g - 1
+      goldhelp(n, alpha, beta)
+    }
+    else
+      println("Goldback for " + n + " returns: " + g + " , " + i)
+  }
+  else {
+    var alpha = i + 1
+    var beta = g - 1
+    goldhelp(n, alpha, beta)
+  }
 }
