@@ -35,7 +35,7 @@ def sort(alist: List[String]): List[Int] = {
         english.indexOf(head) :: sort(tail)
       }
       else
-        return Nil
+        sort(tail)
   }
 }
 
@@ -46,5 +46,5 @@ def add(alist: List[Int]): Int = {
 
 //output for list multiplied
 def multi(alist: List[Int]): Int = {
-  alist.foldLeft(0)(_ * _)
+  alist.foldLeft(1)(_ * _)
 }
