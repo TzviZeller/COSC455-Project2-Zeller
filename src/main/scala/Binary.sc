@@ -2,7 +2,7 @@
 //Project 2 - Binary
 
 // Test Cases
-val pTest1: List[Int] = List(1, 1, 1, 1, 0)
+val pTest1: List[Int] = List (1, 1, 1, 1, 0)
 val qTest1: List[Int] = List(1, 0, 1, 1)
 val test1ExectedSolution: List[Int] = List(1, 0, 1, 0, 0, 1)
 
@@ -25,7 +25,7 @@ if (binaryAddition(pTest3, qTest3).equals(test3ExectedSolution)) println("Test 3
 if (binaryAddition(pTest4, qTest4).equals(test4ExectedSolution)) println("Test 4 passes!") else println("Test 4 fails.")
 
 //main function to drive
-def binaryAddition(pList: List[Int], qList: List[Int]) = {
+def binaryAddition(pList: List[Int], qList: List[Int]): List[Int] = {
   var intlist1 = pList.reverse
   var intlist2 = qList.reverse
   var bool1 = convertIntListToBooleanList(intlist1)
@@ -33,6 +33,10 @@ def binaryAddition(pList: List[Int], qList: List[Int]) = {
   var output = doBinaryAddition(bool1, bool2, false)
   var intfin = output.reverse
   var boolfin = convertBooleanListToIntList(intfin)
+
+  println()
+  println(boolfin)
+  boolfin
 }
 
 // This function does the binary addition of two boolean lists. Note that the lists may not be equal in length.
@@ -41,8 +45,10 @@ def doBinaryAddition(pBits: List[Boolean], qBits: List[Boolean], carryBit: Boole
     finishBinaryAdd(qBits, carryBit)
   else if ((!pBits.isEmpty) && (qBits.isEmpty) && (carryBit == true))
     finishBinaryAdd(pBits, carryBit)
-  else
+  else if ((!pBits.isEmpty) && (!qBits.isEmpty))
     addBits(pBits.head, qBits.head, carryBit) :: doBinaryAddition(pBits.tail, qBits.tail, getNextCarryBit(pBits.head, qBits.head, carryBit))
+  else
+    Nil
 }
 
 // This function does the binary addition when there are uneven lists and still must
@@ -51,11 +57,13 @@ def finishBinaryAdd(remainingBits: List[Boolean], carryBit: Boolean): List[Boole
   if ((!remainingBits.isEmpty) && (carryBit == false)) {
     remainingBits
   }
-  else if ((remainingBits.isEmpty) && (carryBit == false)) {
+  else if ((remainingBits.isEmpty) && (carryBit == true)) {
     List(true)
   }
+  else if ((!remainingBits.isEmpty) && (carryBit == true))
+    !remainingBits.head :: finishBinaryAdd(remainingBits.tail, remainingBits.head)
   else
-    !remainingBits.head :: finishBinaryAdd(remainingBits.tail,remainingBits.head)
+    Nil
 }
 
 // This function determines what the next carry bit should be based on current bits.
@@ -70,7 +78,7 @@ def addBits(pBit: Boolean, qBit: Boolean, carryBit: Boolean): Boolean = {
 }
 
 // This function converts a binary integer list into its corresponding boolean list.
-def convertIntListToBooleanList(intList: List[Int]) = {
+def convertIntListToBooleanList(intList: List[Int]): List[Boolean] = {
   intList.map {
     case 0 => false
     case 1 => true
@@ -78,7 +86,7 @@ def convertIntListToBooleanList(intList: List[Int]) = {
 }
 
 // This function converts a boolean list into its corresponding binary integer list.
-def convertBooleanListToIntList(booleanList: List[Boolean]) {
+def convertBooleanListToIntList(booleanList: List[Boolean]): List[Int] ={
   booleanList.map {
     case false => 0
     case true => 1
