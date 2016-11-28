@@ -4,24 +4,6 @@
 //import for data structures
 import scala.collection.mutable.Stack
 
-//funtion calls for test cases
-//#1
-var num: Int = 37
-prime(num)
-
-//#2
-var num1: Int = 41
-var num2: Int = 43
-twinPrime(num1, num2)
-
-//#3
-var numlist: List[Int] = twinPrimeList(50)
-
-//#4
-goldbach(28)
-
-
-
 //function to test if an int is prime
 def prime(n: Int): Boolean = {
   (2 until n) forall (n % _ != 0)
@@ -44,7 +26,6 @@ def twinPrime(n: Int, i: Int): Boolean = {
 def twinPrimeList(n: Int): List[Int] = {
   var alist = Stack[Int]()
   twinPrimeListHelp(n, alist)
-
 }
 
 def twinPrimeListHelp(n: Int, alist: Stack[Int]): List[Int] = {
@@ -94,3 +75,20 @@ def goldhelp(n: Int, i: Int, g: Int): Unit = {
     goldhelp(n, alpha, beta)
   }
 }
+
+
+//funtion calls for test cases
+//#1
+var red: Int = 37
+prime(red)
+
+//#2
+var num1: Int = 41
+var num2: Int = 43
+twinPrime(num1, num2)
+
+//#3
+var numlist: List[Int] = twinPrimeList(50)
+
+//#4
+goldbach(28)
